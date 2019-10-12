@@ -40,6 +40,7 @@ class KNN:
                 right_cnt+=1
         return right_cnt/len(X_test)
 
+
 iris = load_iris()
 df = pd.DataFrame(iris.data, columns=['sepal length', 'sepal width', 'petal length', 'petal width'])
 df['label'] = iris.target
