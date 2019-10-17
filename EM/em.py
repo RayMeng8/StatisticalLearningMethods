@@ -11,8 +11,8 @@ class EMThreeCoins:
     def __init__(self, init_prob, max_iter):
         self.pi, self.p, self.q = init_prob
         self.max_iter = max_iter
-        #self.data = None
-        #self.u = None
+        self.data = None
+        self.u = None
 
     def init_args(self, data):
         self.data = np.array(data)
