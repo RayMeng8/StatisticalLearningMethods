@@ -64,14 +64,12 @@ class Perceptron:
 iris = load_iris()
 df = pd.DataFrame(iris.data, columns=['sepal length', 'sepal width', 'petal length', 'petal width'])
 df['label'] = iris.target
-df.label.value_counts()
 
 plt.scatter(df[:50]['sepal length'], df[:50]['sepal width'], label='0')
 plt.scatter(df[50:100]['sepal length'], df[50:100]['sepal width'], label='1')
 plt.xlabel('sepal length')
 plt.ylabel('sepal width')
 plt.legend()
-#plt.show()
 
 data = np.array(df.iloc[:100, [0, 1, -1]])
 X, y = data[:, :-1], data[:,-1]

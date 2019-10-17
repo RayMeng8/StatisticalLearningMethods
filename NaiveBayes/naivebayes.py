@@ -23,12 +23,6 @@ class NaiveBayes:
         self.num_samples = len(X_train)
         self.num_features = len(X_train[0])
 
-    def mean(self, X):
-        return sum(X)/len(X)
-
-    def std(self, X):
-        return math.sqrt(sum([pow(x-self.mean(X), 2) for x in X])/len(X))
-
     def gaussian_distribution(self, x, mean, std):
         return (1/(math.sqrt(2 * math.pi)*std))*math.exp(-math.pow(x-mean, 2)/(2*math.pow(std, 2)))
 
@@ -42,17 +36,17 @@ class NaiveBayes:
             self.labels_num[label] = len(data)
             for i in range(self.num_features):
                 features = data[:, i]
-                mean = self.mean(features)
-                std = self.std(features)
+                mean = np.mean(features)
+                std = np.std(features)
                 prob_label.append((mean, std))
             self.probs[label] = prob_label
 
-    def predict(self, X):
+    def predict(self, x):
         for label, paras in self.probs.items():
             self.prob_res[label] = 1
             for i in range(self.num_features):
-                self.prob_res[label] *= self.gaussian_distribution(X[i], paras[i][0], paras[i][1])
-        label = sorted(self.prob_res.items(), key = lambda x:x[-1])[-1][0]
+                self.prob_res[label] *= self.gaussian_distribution(x[i], paras[i][0], paras[i][1])
+        label = sorted(self.prob_res.items(), key=lambda x:x[-1])[-1][0]
         return label
 
     def score(self, X_test, y_test):
