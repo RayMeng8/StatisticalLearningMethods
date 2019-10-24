@@ -17,7 +17,7 @@ class NaiveBayes:
         self.labels_num = {}
         self.prob_res = {}
 
-    def init_args(self, X_train, y_train):
+    def init_para(self, X_train, y_train):
         self.X_train = X_train
         self.y_train = y_train
         self.num_samples = len(X_train)
@@ -28,7 +28,7 @@ class NaiveBayes:
 
 
     def fit(self, X, y):
-        self.init_args(X, y)
+        self.init_para(X, y)
         labels = list(set(y))
         for label in labels:
             prob_label = []

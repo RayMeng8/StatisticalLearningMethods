@@ -23,9 +23,9 @@ class MaxEntropy:
         self.xy2ID = {}
         self.ID2xy = {}
         self.E_pxy = []
-        self.initPara()
+        self.init_para()
 
-    def initPara(self):
+    def init_para(self):
         self.num_samples = len(self.samples)
         for item in self.samples:
             X = item[:-1]

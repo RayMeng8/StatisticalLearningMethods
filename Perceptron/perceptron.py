@@ -15,14 +15,14 @@ class Perceptron:
         self.b = 0
         self.learning_rate = learning_rate
 
-    def init_args(self, X_train, y_train):
+    def init_para(self, X_train, y_train):
         self.num_samples = len(X_train)
         self.num_features = len(X_train[0])
         self.gram = np.dot(X_train, X_train.T)
 
     #对偶形式
     def fit2(self, X_train, y_train):
-        self.init_args(X_train, y_train)
+        self.init_para(X_train, y_train)
         #计算Gram矩阵
         is_wrong = False
         while not is_wrong:
