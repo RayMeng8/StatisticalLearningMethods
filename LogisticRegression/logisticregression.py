@@ -11,21 +11,29 @@ from sklearn.model_selection import train_test_split
 
 
 class LR:
-    def __init__(self, max_iter = 200, learning_rate = 0.1, p = 0.5):
+    def __init__(self, max_iter=200, learning_rate=0.1, p=0.5):
         self.max_iter = max_iter
         self.learning_rate = learning_rate
         self.p = p
 
-    def sigmoid(self, x):
-        res = 1.0/(1+np.exp(-x))
-        return res
-
     def fit(self, X, y):
-        self.weights = np.ones((X.shape[1], 1), dtype=float)
+        self.weights = np.array([0.0] * X[0].size, dtype=float)
         for i in range(self.max_iter):
-            h = y.reshape(y.shape[0], 1) - self.sigmoid(np.dot(X, self.weights))
-            grad = np.dot(X.T, h)
-            self.weights += self.learning_rate * grad
+            grads = np.array([0.0] * X[0].size, dtype=float)
+            for m, n in zip(X, y):
+                # avoid overflow encountered in exp
+                inx = np.dot(m, self.weights)
+                if inx >= 0:
+                    h = n - 1.0/(1+np.exp(-inx))
+                else:
+                    h = n - np.exp(inx)/(1+np.exp(inx))
+                #h = n - 1.0/(1+np.exp(-np.dot(m, self.weights)))
+                for j in range(X[0].size):
+                    #似然函数最大，梯度上升法
+                    #似然函数对w求偏导得
+                    #grad = sum(x_i * (y_i - sigmoid(w * x_i)))
+                    grads[j] += m[j] * h
+            self.weights += grads
         return self.weights
 
     def score(self, X, y):
