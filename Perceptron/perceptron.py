@@ -41,7 +41,7 @@ class Perceptron:
 
     #原始形式
     def fit(self, X_train, y_train):
-        self.init_args(X_train, y_train)
+        self.init_para(X_train, y_train)
         is_wrong = False
         while not is_wrong:
             wrong_cnt = 0
